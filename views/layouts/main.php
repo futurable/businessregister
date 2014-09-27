@@ -57,7 +57,7 @@ AppAsset::register($this);
             
 		<div class="container">
 			<div id="logo">
-            	<?php echo Html::img( Yii::getAlias('@web') . '/css/img/businessregister_logo.png'); ?>
+            	<?php echo Html::img( Yii::getAlias('@web') . "/css/img/businessregister_logo_". \Yii::$app->language .".png"); ?>
 	        </div>
 	        
 			<?= $content ?>
