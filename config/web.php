@@ -3,14 +3,18 @@
 $params = require(__DIR__ . '/params.php');
 
 $config = [
-    'id' => 'basic',
+    'id' => 'futural_business_register',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'futural',
         ],
+    	'urlManager' => [
+    			'enablePrettyUrl' => true,
+    			'showScriptName' => true,
+    	],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
