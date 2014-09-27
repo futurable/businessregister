@@ -53,7 +53,7 @@ return [
     'Event Time' => '',
     'Executed' => '',
     'Expiration Date' => '',
-    'Futurality Business Register' => 'Futurality Yritystietojärjestelmä',
+    'Futurality Business Register' => 'Futuralityn Yritystietojärjestelmä',
     'Hello, {username}!' => '',
     'ID' => '',
     'Industries' => 'Toimialat',
