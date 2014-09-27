@@ -1,51 +1,65 @@
 <?php
+use yii\helpers\Html;
+use kartik\widgets\ActiveForm;
+use yii\widgets\DetailView;
+
 /* @var $this yii\web\View */
-$this->title = 'My Yii Application';
+$this->title = Yii::t('app', 'Futurality Business Register');
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+    	<h1><?= Yii::t('app', 'Welcome!')?></h1>
+    
+        <p class="lead"><?= Yii::t('app', 'Search a company by business ID')?>:</p>
+        
+		<div class="company-form">
+		
+		    <?php
+		    $form = ActiveForm::begin([
+	            'id' => 'search-form',
+	            'type' => ActiveForm::TYPE_INLINE
+        	]);
+		    ?>
+		    
+		    <?= $form->errorSummary($company); ?>
+		
+		   	<?= "<p>".$form->field($company, 'business_id')."</p>"; ?>
+		
+		    <div class="form-group">
+		        <?= Html::submitButton(Yii::t('app', 'Search') , ['class' => 'btn btn-success']) ?>
+		    </div>
+		
+		    <?php ActiveForm::end(); ?>
+		
+			<?php
+				if( isset($company->business_id) ){
+					echo "<h2>" . Yii::t('app', 'Search results') . ":</h2>";
+				}
+			
+				if(isset($company->name)){
+					$attributes = [
+						'name',
+						'business_id',
+						'email:email',
+						'employees',
+	                    [
+	                        'attribute' => 'industry.name',
+	                        'label' => Yii::t('app', 'Industry'),
+	                    	'value' => Yii::t('app', $company->industry->name),
+	                    ],
+					];
+					
+					echo DetailView::widget([
+						'model' => $company,
+						'attributes' => $attributes,
+					]);
+				} elseif( isset($company->business_id) ) {
+					echo "<p><strong>" . Yii::t('app', "Nothing was found with business id '{business_id}'", ['business_id'=>$company->business_id]) . "</strong></p>";
+				}
+			?>
+		
+		</div>
     </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
+    
 </div>

@@ -4,6 +4,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -18,53 +19,57 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+	<link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/css/img/favicon.ico" />
     <?php $this->head() ?>
 </head>
 <body>
 
+<?php
+	NavBar::begin([
+		'brandLabel' => Yii::t('app', 'Futurality Business Register'),
+		'brandUrl' => Yii::$app->homeUrl,
+		'options' => [
+			'class' => 'navbar-inverse navbar-fixed-top',
+		],
+	]);
+	echo Nav::widget([
+		'options' => ['class' => 'navbar-nav navbar-right'],
+		'items' => [
+			['label' => 'Language', 'items' => [
+				['label' => 'Finnish', 'url' => Url::canonical().'?lang=fi'],
+				['label' => 'English', 'url' => Url::canonical().'?lang=en'],
+			]]
+		],
+	]);
+	NavBar::end();
+?>
+
 <?php $this->beginBody() ?>
-    <div class="wrap">
-        <?php
-            NavBar::begin([
-                'brandLabel' => Yii::t('app', 'Futurality business register'),
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
-                ],
-            ]);
+	<div class="wrap">
+		<div class='disclaimer'>
+		    <p>
+		        Welcome to Futural - a virtual learning environment 
+		        by <a href='http://futurable.fi'>Futurable</a>.
+		        <a href='http://futurable.fi/index.php/site/contact'>Give feedback</a>.
+		    </p>
+		</div>
             
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-            	/*
-                'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                            'url' => ['/site/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
-                ],*/
-            ]);
-            NavBar::end();
-            
-        ?>
+		<div class="container">
+			<div id="logo">
+            	<?php echo Html::img( Yii::getAlias('@web') . '/css/img/businessregister_logo.png'); ?>
+	        </div>
+	        
+			<?= $content ?>
+		</div>
+	</div>
 
-        <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= $content ?>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-            <p class="pull-right"><?= Yii::powered() ?></p>
-        </div>
-    </footer>
+	<footer class="footer">
+		<div class="container">
+			<p class="pull-left">Futural business simulation environment</p>
+			<p class="pull-right">Futurable Oy <?= date('Y') ?></p>
+		</div>
+	</footer>
 
 <?php $this->endBody() ?>
 </body>

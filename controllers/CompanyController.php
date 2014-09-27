@@ -8,11 +8,12 @@ use app\models\CompanySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\controllers\MainController;
 
 /**
- * PostController implements the CRUD actions for Company model.
+ * CompanyController implements the CRUD actions for Company model.
  */
-class PostController extends Controller
+class CompanyController extends MainController
 {
     public function behaviors()
     {

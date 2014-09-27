@@ -17,5 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Futurality business register' => '',
+    'Browse' => '',
+    'Note:' => '',
+    'Remove' => '',
+    'Upload' => '',
+    'Your browser does not support {validation}. Try an alternative or more recent browser to access these features.' => '',
 ];
