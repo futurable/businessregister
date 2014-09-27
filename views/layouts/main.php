@@ -26,14 +26,16 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'My Company',
+                'brandLabel' => Yii::t('app', 'Futurality business register'),
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
+            
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
+            	/*
                 'items' => [
                     ['label' => 'Home', 'url' => ['/site/index']],
                     ['label' => 'About', 'url' => ['/site/about']],
@@ -43,9 +45,10 @@ AppAsset::register($this);
                         ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']],
-                ],
+                ],*/
             ]);
             NavBar::end();
+            
         ?>
 
         <div class="container">
