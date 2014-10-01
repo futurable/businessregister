@@ -41,34 +41,39 @@ class SiteController extends MainController
     {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction',
+                'class' => 'yii\web\ErrorAction'
             ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
+            ]
         ];
     }
 
     public function actionIndex()
     {
-    	$company = new Company();
-    	
-    	if(isset(Yii::$app->request->bodyParams['Company'])){
-    		$business_id = Yii::$app->request->bodyParams['Company']['business_id'];
-    		// Strip anything but numbers
-    		$company->business_id = preg_replace( '/[^0-9]/', '', $business_id);
-    		// Add a dash before validation bit
-    		if(strlen($company->business_id)>=8){
-    			$company->business_id = substr($company->business_id, 0, -1) . "-" . substr($company->business_id, -1);
-    		}
-    		
-    		// Search the company
-    		$search = Company::find()->where(['business_id'=>$company->business_id])->one();
-    		
-    		$company = !empty($search) ? $search : $company;
-    	}
-    	
-        return $this->render('index', ['company'=>$company]);
+        $company = new Company();
+        
+        if (isset(Yii::$app->request->bodyParams['Company'])) {
+            $business_id = Yii::$app->request->bodyParams['Company']['business_id'];
+            
+            // Strip anything but numbers
+            $company->business_id = preg_replace('/[^0-9]/', '', $business_id);
+            // Add a dash before validation bit
+            if (strlen($company->business_id) >= 8) {
+                $company->business_id = substr($company->business_id, 0, - 1) . "-" . substr($company->business_id, - 1);
+            }
+            
+            // Search the company
+            $search = Company::find()->where([
+                'business_id' => $company->business_id
+            ])->one();
+            
+            $company = ! empty($search) ? $search : $company;
+        }
+        
+        return $this->render('index', [
+            'company' => $company
+        ]);
     }
 }
