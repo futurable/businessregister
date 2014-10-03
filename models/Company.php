@@ -37,6 +37,11 @@ use Yii;
 class Company extends \yii\db\ActiveRecord
 {
     /**
+     * A helper property for search
+     */
+    public $searchTerm;
+    
+    /**
      * @inheritdoc
      */
     public static function tableName()

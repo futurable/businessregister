@@ -11,7 +11,7 @@ $this->title = Yii::t('app', 'Futurality Business Register');
     <div class="jumbotron">
     	<h1><?= Yii::t('app', 'Welcome!')?></h1>
     
-        <p class="lead"><?= Yii::t('app', 'Search a company by business ID')?>:</p>
+        <p class="lead"><?= Yii::t('app', 'Search a company by the business ID or name')?>:</p>
         
 		<div class="company-form">
 		
@@ -24,7 +24,7 @@ $this->title = Yii::t('app', 'Futurality Business Register');
 		    
 		    <?= $form->errorSummary($company); ?>
 		
-		   	<?= "<p>".$form->field($company, 'business_id')."</p>"; ?>
+		   	<?= "<p>".$form->field($company, 'searchTerm')."</p>"; ?>
 		
 		    <div class="form-group">
 		        <?= Html::submitButton(Yii::t('app', 'Search') , ['class' => 'btn btn-success']) ?>
@@ -54,8 +54,8 @@ $this->title = Yii::t('app', 'Futurality Business Register');
 						'model' => $company,
 						'attributes' => $attributes,
 					]);
-				} elseif( isset($company->business_id) ) {
-					echo "<p><strong>" . Yii::t('app', "Nothing was found with the search term '{business_id}'", ['business_id'=>$company->business_id]) . "</strong></p>";
+				} elseif( isset($company->searchTerm) ) {
+					echo "<p><strong>" . Yii::t('app', "Nothing was found with the search term '{business_id}'", ['business_id'=>$company->searchTerm]) . "</strong></p>";
 				}
 			?>
 		

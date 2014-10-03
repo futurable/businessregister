@@ -55,14 +55,15 @@ class SiteController extends MainController
         $company = new Company();
         
         if (isset(Yii::$app->request->bodyParams['Company'])) {
-            $company->business_id = Yii::$app->request->bodyParams['Company']['business_id'];
+            $searchTerm = Yii::$app->request->bodyParams['Company']['searchTerm'];
+            $company->searchTerm = $searchTerm;
             
             // Try to search by business ID
-            $result = $this->searchByBusinessID( $company->business_id  );
+            $result = $this->searchByBusinessID( $company->searchTerm  );
             
             // Nothing found by business ID. Try to search by name
             if($result == false){
-                $result = $this->searchByName( $company->business_id );
+                $result = $this->searchByName( $company->searchTerm );
             }
             
             // Nothing found by name. Return the search term
@@ -82,11 +83,12 @@ class SiteController extends MainController
         if (strlen($businessID) >= 8) {
             $businessID = substr($businessID, 0, - 1) . "-" . substr($businessID, - 1);
         }
-        
+
         // Search the company
-        $search = Company::find()->where([
-            'business_id' => $businessID
-            ])->one();
+        $search = Company::find()
+        ->where(['business_id' => $businessID])
+        ->andWhere(['active' => 1])
+        ->one();
         
         if($search instanceof Company) $result = $search;
         else $result = false;
