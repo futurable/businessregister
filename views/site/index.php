@@ -55,7 +55,7 @@ $this->title = Yii::t('app', 'Futurality Business Register');
 						'attributes' => $attributes,
 					]);
 				} elseif( isset($company->business_id) ) {
-					echo "<p><strong>" . Yii::t('app', "Nothing was found with business id '{business_id}'", ['business_id'=>$company->business_id]) . "</strong></p>";
+					echo "<p><strong>" . Yii::t('app', "Nothing was found with the search term '{business_id}'", ['business_id'=>$company->business_id]) . "</strong></p>";
 				}
 			?>
 		

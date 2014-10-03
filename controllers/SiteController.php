@@ -55,25 +55,55 @@ class SiteController extends MainController
         $company = new Company();
         
         if (isset(Yii::$app->request->bodyParams['Company'])) {
-            $business_id = Yii::$app->request->bodyParams['Company']['business_id'];
+            $company->business_id = Yii::$app->request->bodyParams['Company']['business_id'];
             
-            // Strip anything but numbers
-            $company->business_id = preg_replace('/[^0-9]/', '', $business_id);
-            // Add a dash before validation bit
-            if (strlen($company->business_id) >= 8) {
-                $company->business_id = substr($company->business_id, 0, - 1) . "-" . substr($company->business_id, - 1);
+            // Try to search by business ID
+            $result = $this->searchByBusinessID( $company->business_id  );
+            
+            // Nothing found by business ID. Try to search by name
+            if($result == false){
+                $result = $this->searchByName( $company->business_id );
             }
             
-            // Search the company
-            $search = Company::find()->where([
-                'business_id' => $company->business_id
-            ])->one();
-            
-            $company = ! empty($search) ? $search : $company;
+            // Nothing found by name. Return the search term
+            $company = ! $result==false ? $result : $company;
         }
         
         return $this->render('index', [
             'company' => $company
         ]);
+    }
+    
+    private function searchByBusinessID($businessID){
+        // Strip anything but numbers
+        $businessID = preg_replace('/[^0-9]/', '', $businessID);
+        
+        // Add a dash before validation bit
+        if (strlen($businessID) >= 8) {
+            $businessID = substr($businessID, 0, - 1) . "-" . substr($businessID, - 1);
+        }
+        
+        // Search the company
+        $search = Company::find()->where([
+            'business_id' => $businessID
+            ])->one();
+        
+        if($search instanceof Company) $result = $search;
+        else $result = false;
+        
+        return $result;
+    }
+    
+    private function searchByName($name){
+        // Search the company
+        $search = Company::find()
+        ->where(['like', 'LOWER(name)', strtolower($name)])
+        ->andWhere(['active' => 1])
+        ->one();
+        
+        if($search instanceof Company) $result = $search;
+        else $result = false;
+        
+        return $result;
     }
 }
