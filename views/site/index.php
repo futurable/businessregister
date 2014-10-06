@@ -40,6 +40,12 @@ $this->title = Yii::t('app', 'Futurality Business Register');
 				if(!empty($companies)){
                     $i = 0;
                     foreach($companies as $company){
+                        
+                        if( $company->hasErrors() ) {
+                            echo "<h3>". $company->getFirstError('searchTerm') ."</h3>";
+                            continue;
+                        }
+                        
                         $i++;
     					$attributes = [
     						'business_id',
@@ -52,8 +58,7 @@ $this->title = Yii::t('app', 'Futurality Business Register');
     	                    ],
     					];
     					
-                        echo  "<h3>
-                        {$company->name}</h3>"; 
+                        echo  "<h3>{$company->name}</h3>"; 
     					echo DetailView::widget([
     						'model' => $company,
     						'attributes' => $attributes,

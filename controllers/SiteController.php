@@ -101,10 +101,16 @@ class SiteController extends MainController
         $search = Company::find()
         ->where(['like', 'LOWER(name)', strtolower($name)])
         ->andWhere(['active' => 1])
-        ->limit(5)
+        ->limit(4)
         ->all();
 
-        if(count($search) > 5) $result = Yii::t('app', "Too many results.")." ".Yii::t('app', 'Try more spesific search term');
+        if(count($search) > 3){
+            $company = new Company();
+            
+            $company->addError('searchTerm', Yii::t('app', "Too many results!")."<br/>".Yii::t('app', 'Try a more spesific search term.'));
+            
+            $result = [$company];
+        }
         elseif(!empty($search)) $result = $search;
         else $result = false;
         
