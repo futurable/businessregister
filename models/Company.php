@@ -86,6 +86,7 @@ class Company extends \yii\db\ActiveRecord
             'token_key_id' => Yii::t('app', 'Token Key ID'),
             'industry_id' => Yii::t('app', 'Industry ID'),
             'token_customer_id' => Yii::t('app', 'Token Customer ID'),
+            'searchTerm' => Yii::t('app', 'Search term'),
         ];
     }
 

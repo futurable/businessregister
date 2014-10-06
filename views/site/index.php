@@ -65,7 +65,7 @@ $this->title = Yii::t('app', 'Futurality Business Register');
     					]);
     				}
     			}
-    			elseif( isset($search->searchTerm) ) {
+    			elseif( isset($search->searchTerm) AND !empty($search->searchTerm) ) {
     			    echo "<p><strong>" . Yii::t('app', "Nothing was found with the search term '{business_id}'", ['business_id'=>$search->searchTerm]) . "</strong></p>";
     			}
 			?>

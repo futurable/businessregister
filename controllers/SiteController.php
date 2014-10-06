@@ -59,13 +59,17 @@ class SiteController extends MainController
             $searchTerm = Yii::$app->request->bodyParams['Company']['searchTerm'];
             $search->searchTerm = $searchTerm;
             
-            // Try to search by business ID
-            $companies = $this->searchByBusinessID( $search->searchTerm  );
+            if(!empty($searchTerm)){
             
-            // Nothing found by business ID. Try to search by name
-            if($companies == false){
-                $companies = $this->searchByName( $search->searchTerm );
+                // Try to search by business ID
+                $companies = $this->searchByBusinessID( $search->searchTerm  );
+                
+                // Nothing found by business ID. Try to search by name
+                if($companies == false){
+                    $companies = $this->searchByName( $search->searchTerm );
+                }
             }
+            else $search->addError('searchTerm', Yii::t('app', 'Search term can not be empty'));
             
         }
         
