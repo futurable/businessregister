@@ -52,26 +52,26 @@ class SiteController extends MainController
 
     public function actionIndex()
     {
-        $company = new Company();
+        $search = new Company();
+        $companies = [];
         
         if (isset(Yii::$app->request->bodyParams['Company'])) {
             $searchTerm = Yii::$app->request->bodyParams['Company']['searchTerm'];
-            $company->searchTerm = $searchTerm;
+            $search->searchTerm = $searchTerm;
             
             // Try to search by business ID
-            $result = $this->searchByBusinessID( $company->searchTerm  );
+            $companies = $this->searchByBusinessID( $search->searchTerm  );
             
             // Nothing found by business ID. Try to search by name
-            if($result == false){
-                $result = $this->searchByName( $company->searchTerm );
+            if($companies == false){
+                $companies = $this->searchByName( $search->searchTerm );
             }
             
-            // Nothing found by name. Return the search term
-            $company = ! $result==false ? $result : $company;
         }
         
         return $this->render('index', [
-            'company' => $company
+            'search' => $search,
+            'companies' => $companies,
         ]);
     }
     
@@ -88,9 +88,9 @@ class SiteController extends MainController
         $search = Company::find()
         ->where(['business_id' => $businessID])
         ->andWhere(['active' => 1])
-        ->one();
+        ->all();
         
-        if($search instanceof Company) $result = $search;
+        if(!empty($search)) $result = $search;
         else $result = false;
         
         return $result;
@@ -101,9 +101,11 @@ class SiteController extends MainController
         $search = Company::find()
         ->where(['like', 'LOWER(name)', strtolower($name)])
         ->andWhere(['active' => 1])
-        ->one();
-        
-        if($search instanceof Company) $result = $search;
+        ->limit(5)
+        ->all();
+
+        if(count($search) > 5) $result = Yii::t('app', "Too many results.")." ".Yii::t('app', 'Try more spesific search term');
+        elseif(!empty($search)) $result = $search;
         else $result = false;
         
         return $result;
