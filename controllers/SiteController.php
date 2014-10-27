@@ -92,9 +92,12 @@ class SiteController extends MainController
     public function actionList()
     {
         $searchModel = new CompanySearch();
-        $industryID = Industry::find()->where([ 'name'=>Yii::$app->request->queryParams['industry'] ])->one()->id;
-
-        $dataProvider = $searchModel->search(['CompanySearch'=>['industry_id'=>$industryID]]);
+        
+        if( isset( Yii::$app->request->queryParams['industry'] ) ){
+            $industryID = Industry::find()->where([ 'name'=>Yii::$app->request->queryParams['industry'] ])->one()->id;
+    
+            $dataProvider = $searchModel->search(['CompanySearch'=>['industry_id'=>$industryID]]);
+        } else $dataProvider = false;
         
         return $this->render('list', [
             'dataProvider' => $dataProvider,
