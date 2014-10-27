@@ -19,10 +19,8 @@ AppAsset::register($this);
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags()?>
     <title><?= Html::encode($this->title) ?></title>
-<link href='http://fonts.googleapis.com/css?family=Ubuntu'
-	rel='stylesheet' type='text/css'>
-<link rel="shortcut icon"
-	href="<?= Yii::getAlias('@web') ?>/css/img/favicon.ico" />
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="<?= Yii::getAlias('@web') ?>/css/img/favicon.ico" />
     <?php $this->head()?>
 </head>
 <body>
@@ -59,32 +57,32 @@ NavBar::end();
 ?>
 
 <?php $this->beginBody()?>
-	<div class="wrap">
-		<div class='disclaimer'>
-			<p>
-				Welcome to Futural - a virtual learning environment by <a
-					href='http://futurable.fi'>Futurable</a>. <a
-					href='http://futurable.fi/index.php/site/contact'>Give feedback</a>.
-			</p>
-		</div>
+    <div class="wrap">
+        <div class='disclaimer'>
+            <p>
+                Welcome to Futural - a virtual learning environment by <a
+                    href='http://futurable.fi'>Futurable</a>. <a
+                    href='http://futurable.fi/index.php/site/contact'>Give feedback</a>.
+            </p>
+        </div>
 
-		<div class="container">
-			<div id="logo">
-            	<?php echo Html::img( Yii::getAlias('@web') . "/css/img/businessregister_logo_". \Yii::$app->language .".png"); ?>
-	        </div>
-	        
-			<?= $content?>
-		</div>
-	</div>
+        <div class="container">
+            <div id="logo">
+                <?php echo Html::img( Yii::getAlias('@web') . "/css/img/businessregister_logo_". \Yii::$app->language .".png"); ?>
+            </div>
+            
+            <?= $content?>
+        </div>
+    </div>
 
-	<footer class="footer">
-		<div class="container">
-			<p class="pull-left">Futural business simulation environment</p>
-			<p class="pull-right">Futurable Oy <?= date('Y') ?></p>
-		</div>
-	</footer>
+    <footer class="footer">
+        <div class="container">
+            <p class="pull-left">Futural business simulation environment</p>
+            <p class="pull-right">Futurable Oy <?= date('Y') ?></p>
+        </div>
+    </footer>
 
-<?php $this->endBody() ?>
+<?php $this->endBody()?>
 </body>
 </html>
-<?php $this->endPage() ?>
+<?php $this->endPage()?>
