@@ -8,30 +8,30 @@ $this->title = Yii::t('app', 'Futurality Business Register');
 ?>
 <div class="site-index">
 
-	<div class="jumbotron">
-		<h1><?= Yii::t('app', 'Welcome!')?></h1>
+    <div class="jumbotron">
+        <h1><?= Yii::t('app', 'Welcome!')?></h1>
 
-		<p class="lead"><?= Yii::t('app', 'Search a company by the business ID or name')?>:</p>
+        <p class="lead"><?= Yii::t('app', 'Search a company by the business ID or name')?>:</p>
 
-		<div class="company-form">
-		
-		    <?php
+        <div class="company-form">
+        
+            <?php
     $form = ActiveForm::begin([
         'id' => 'search-form',
         'type' => ActiveForm::TYPE_INLINE
     ]);
     ?>
-		    
-		    <?= $form->errorSummary($search); ?>
-		
-		   	<?= "<p>".$form->field($search, 'searchTerm')."</p>"; ?>
-		
-		    <div class="form-group">
-		        <?= Html::submitButton(Yii::t('app', 'Search') , ['class' => 'btn btn-success'])?>
-		    </div>
-		
-		    <?php ActiveForm::end(); ?>
-		
+            
+            <?= $form->errorSummary($search); ?>
+        
+               <?= "<p>".$form->field($search, 'searchTerm')."</p>"; ?>
+        
+            <div class="form-group">
+                <?= Html::submitButton(Yii::t('app', 'Search') , ['class' => 'btn btn-success'])?>
+            </div>
+        
+            <?php ActiveForm::end(); ?>
+        
 <?php
 if (! empty($companies)) {
     echo "<h2>" . Yii::t('app', 'Search results') . ":</h2>";
@@ -70,8 +70,8 @@ if (! empty($companies)) {
     ]) . "</strong></p>";
 }
 ?>
-		
-		</div>
-	</div>
+        
+        </div>
+    </div>
 
 </div>
