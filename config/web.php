@@ -42,6 +42,7 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+        'db_bank' => require(__DIR__ . '/db_bank.php'),
     ],
     'params' => $params,
 ];
