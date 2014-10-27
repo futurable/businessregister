@@ -40,6 +40,7 @@ class Company extends \yii\db\ActiveRecord
      * A helper property for search
      */
     public $searchTerm;
+    public $bank_account;
     
     /**
      * @inheritdoc
@@ -87,6 +88,7 @@ class Company extends \yii\db\ActiveRecord
             'industry_id' => Yii::t('app', 'Industry ID'),
             'token_customer_id' => Yii::t('app', 'Token Customer ID'),
             'searchTerm' => Yii::t('app', 'Search term'),
+            'bank_account' => Yii::t('app', 'Bank account'),
         ];
     }
 

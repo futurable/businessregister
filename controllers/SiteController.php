@@ -11,6 +11,8 @@ use app\models\ContactForm;
 use app\controllers\MainController;
 use app\models\Company;
 use yii\db\Command;
+use app\models\BankAccount;
+use app\models\BankUser;
 
 class SiteController extends MainController
 {
@@ -73,6 +75,9 @@ class SiteController extends MainController
             
         }
         
+        // Get bank accounts
+        if(!empty($companies)) $companies = $this->getBankAccount($companies);
+        
         return $this->render('index', [
             'search' => $search,
             'companies' => $companies,
@@ -119,5 +124,16 @@ class SiteController extends MainController
         else $result = false;
         
         return $result;
+    }
+    
+    private function getBankAccount($companies){
+        foreach($companies as $key => $company){
+            $bankUser = BankUser::find()->where(['username'=>$company->tag])->one();
+            $bankAccount = isset($bankUser) ? BankAccount::find()->where(['bank_user_id' => $bankUser->id])->one() : null;
+            
+            $companies[$key]->bank_account = $bankAccount;
+        }
+        
+        return $companies;
     }
 }

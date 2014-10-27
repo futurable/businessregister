@@ -55,7 +55,9 @@ if (! empty($companies)) {
                 'attribute' => 'industry.name',
                 'label' => Yii::t('app', 'Industry'),
                 'value' => Yii::t('app', $company->industry->name)
-            ]
+            ],
+            'bank_account.bankBic.bic:text:'.Yii::t('app', 'BIC'),
+            'bank_account.iban:text:'.Yii::t('app', 'IBAN'),
         ];
         
         echo "<h3>{$company->name}</h3>";
