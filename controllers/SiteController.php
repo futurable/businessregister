@@ -13,6 +13,8 @@ use app\models\Company;
 use yii\db\Command;
 use app\models\BankAccount;
 use app\models\BankUser;
+use app\models\CompanySearch;
+use app\models\Industry;
 
 class SiteController extends MainController
 {
@@ -56,24 +58,27 @@ class SiteController extends MainController
     {
         $search = new Company();
         $companies = [];
-        
+
+        if ( isset(Yii::$app->request->queryParams['company']) ){
+            $searchTerm = Yii::$app->request->queryParams['company'];
+            $search->searchTerm = $searchTerm;
+        }
         if (isset(Yii::$app->request->bodyParams['Company'])) {
             $searchTerm = Yii::$app->request->bodyParams['Company']['searchTerm'];
             $search->searchTerm = $searchTerm;
-            
-            if(!empty($searchTerm)){
-            
-                // Try to search by business ID
-                $companies = $this->searchByBusinessID( $search->searchTerm  );
-                
-                // Nothing found by business ID. Try to search by name
-                if($companies == false){
-                    $companies = $this->searchByName( $search->searchTerm );
-                }
-            }
-            else $search->addError('searchTerm', Yii::t('app', 'Search term can not be empty'));
-            
         }
+        
+        if(!empty($search->searchTerm)){
+        
+            // Try to search by business ID
+            $companies = $this->searchByBusinessID( $search->searchTerm  );
+            
+            // Nothing found by business ID. Try to search by name
+            if($companies == false){
+                $companies = $this->searchByName( $search->searchTerm );
+            }
+        }
+        elseif(isset($search->searchTerm)) $search->addError('searchTerm', Yii::t('app', 'Search term can not be empty'));
         
         // Get bank accounts
         if(!empty($companies)) $companies = $this->getBankAccount($companies);
@@ -81,6 +86,18 @@ class SiteController extends MainController
         return $this->render('index', [
             'search' => $search,
             'companies' => $companies,
+        ]);
+    }
+    
+    public function actionList()
+    {
+        $searchModel = new CompanySearch();
+        $industryID = Industry::find()->where([ 'name'=>Yii::$app->request->queryParams['industry'] ])->one()->id;
+
+        $dataProvider = $searchModel->search(['CompanySearch'=>['industry_id'=>$industryID]]);
+        
+        return $this->render('list', [
+            'dataProvider' => $dataProvider,
         ]);
     }
     

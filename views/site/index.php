@@ -15,23 +15,23 @@ $this->title = Yii::t('app', 'Futurality Business Register');
 
         <div class="company-form">
         
-            <?php
-    $form = ActiveForm::begin([
-        'id' => 'search-form',
-        'type' => ActiveForm::TYPE_INLINE
-    ]);
+    <?php
+        $form = ActiveForm::begin([
+            'id' => 'search-form',
+            'type' => ActiveForm::TYPE_INLINE,
+        ]);
     ?>
             
-            <?= $form->errorSummary($search); ?>
-        
-               <?= "<p>".$form->field($search, 'searchTerm')."</p>"; ?>
-        
-            <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', 'Search') , ['class' => 'btn btn-success'])?>
-            </div>
-        
-            <?php ActiveForm::end(); ?>
-        
+    <?= $form->errorSummary($search); ?>
+
+    <?= "<p>".$form->field($search, 'searchTerm')."</p>"; ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Search') , ['class' => 'btn btn-success'])?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
 <?php
 if (! empty($companies)) {
     echo "<h2>" . Yii::t('app', 'Search results') . ":</h2>";

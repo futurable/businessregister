@@ -85,15 +85,19 @@ echo Nav::widget([
     ],
     'items' => [
         [
+            'label' => Yii::t('app', 'Search by name'),
+            'url' =>  ['/site/index'],
+        ],
+        [
             'label' => Yii::t('app', 'List by industry'),
             'items' => [
                 [
-                    'label' => Yii::t('app', 'computer-retail'),
-                    'url' =>  ['/site/list', 'industry'=>'computer-retail'],
+                    'label' => Yii::t('app', 'computer-assembly'),
+                    'url' =>  ['/site/list', 'industry'=>'computer-assembly'],
                 ],
                 [
-                    'label' => Yii::t('app', 'computer-assembly'),
-                    'url' => ['/site/list', 'industry'=>'computer-assembly'],
+                    'label' => Yii::t('app', 'computer-retail'),
+                    'url' => ['/site/list', 'industry'=>'computer-retail'],
                 ]
             ]
         ]

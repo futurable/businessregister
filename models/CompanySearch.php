@@ -42,7 +42,7 @@ class CompanySearch extends Company
     public function search($params)
     {
         $query = Company::find();
-
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -50,6 +50,7 @@ class CompanySearch extends Company
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+        $this->active = 1;
 
         $query->andFilterWhere([
             'id' => $this->id,
