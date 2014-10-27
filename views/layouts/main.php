@@ -71,6 +71,37 @@ NavBar::end();
                 <?php echo Html::img( Yii::getAlias('@web') . "/css/img/businessregister_logo_". \Yii::$app->language .".png"); ?>
             </div>
             
+<?php
+NavBar::begin([
+    #'brandLabel' => Yii::t('app', 'List by industry'),
+    'brandUrl' => Yii::$app->homeUrl,
+    'options' => [
+        'class' => 'navbar'
+    ]
+]);
+echo Nav::widget([
+    'options' => [
+        'class' => 'navbar-nav'
+    ],
+    'items' => [
+        [
+            'label' => Yii::t('app', 'List by industry'),
+            'items' => [
+                [
+                    'label' => Yii::t('app', 'computer-retail'),
+                    'url' =>  ['/site/list', 'industry'=>'computer-retail'],
+                ],
+                [
+                    'label' => Yii::t('app', 'computer-assembly'),
+                    'url' => ['/site/list', 'industry'=>'computer-assembly'],
+                ]
+            ]
+        ]
+    ]
+]);
+NavBar::end();
+?>
+            
             <?= $content?>
         </div>
     </div>
