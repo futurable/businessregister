@@ -71,6 +71,8 @@ class CompanySearch extends Company
             ->andFilterWhere(['like', 'business_id', $this->business_id])
             ->andFilterWhere(['like', 'email', $this->email]);
 
+        $query->orderBy('name');
+        
         return $dataProvider;
     }
 }
