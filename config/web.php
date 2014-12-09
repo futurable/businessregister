@@ -6,15 +6,16 @@ $config = [
     'id' => 'futural_business_register',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'fi',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'futural',
         ],
-    	'urlManager' => [
-    			'enablePrettyUrl' => true,
-    			'showScriptName' => true,
-    	],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => true
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

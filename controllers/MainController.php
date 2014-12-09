@@ -16,7 +16,7 @@ class MainController extends Controller
             \Yii::$app->language = $_GET['lang'];
             \Yii::$app->session['lang'] = \Yii::$app->language;
         } 
-        else if (isset(\Yii::$app->language)) 
+        else if (isset(\Yii::$app->session['lang'])) 
         {
             \Yii::$app->language = \Yii::$app->session['lang'];
         }
